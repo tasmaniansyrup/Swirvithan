@@ -199,7 +199,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("You're short");
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 7.5f, ForceMode.Impulse);
-            //transform.position = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
         }
 
         if(Input.GetKeyUp(crouchKey)) {
