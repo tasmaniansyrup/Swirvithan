@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
     public GameObject Axe;
     public bool CanAttack = true;
     public float AttackCooldown;
-    private Animator animator;
+    public Animator animator;
     public AudioClip AxeAttackSound;
     public bool isAttacking = false;
     public bool attackAgain = false;
@@ -39,7 +39,6 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward*30, Color.red);
-        animator = Axe.GetComponent<Animator>();
         
         if(Input.GetMouseButtonDown(0))
         {

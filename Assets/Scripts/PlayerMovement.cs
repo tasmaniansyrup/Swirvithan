@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Handles player movement like jump, crouch, sprint, slope movement and stamina
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -35,9 +36,9 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
-    bool grounded;
+    public bool grounded;
 
-    [Header("Step Controls")]
+    [Header("Step Controls // gonna delete later maybe")]
 
     public GameObject stepRayHeight;
     public GameObject stepRayGround;
@@ -87,55 +88,49 @@ public class PlayerMovement : MonoBehaviour
 
         //stepRayHeight.transform.position = new Vector3(stepRayHeight.transform.position.x, -1 + stepMaxHeight, stepRayHeight.transform.position.z);
     }
+    
 
-    private void Awake() {
-        stepRayHeight.transform.position = new Vector3(stepRayHeight.transform.position.x, stepRayHeight.transform.position.y -1 + stepMaxHeight, stepRayHeight.transform.position.z);
-    }
-
-
+    /**
+     *  This function allows for drawing shapes and vectors in unity viewable in the scene
+     *  Only place you can do this ^
+     */
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;
         Vector3 v1 = new Vector3(transform.position.x, transform.position.y - .63f, transform.position.z);
         Gizmos.DrawSphere(v1, 0.6f);
     }
 
-    private void FixedUpdate() {
-        //Debug.Log(rb.velocity.magnitude);
-        stepForce = 8 * moveSpeed/6f;
+    /**
+     * This runs 30 times a second
+     * Best to use FixedUpdate for physics based updating and detection
+     * * NEVER USE FOR PLAYER INPUT
+     */
+    private void FixedUpdate() {        
         
-        
+        // Updates player rb
         MovePlayer();
         SpeedControl();
-        stepController();
+        rb.AddForce(Vector3.down * 7.5f, ForceMode.Force);        
 
+        // Calculates how far away the ground should be from player based on slope
         if(grounded) {
-            expectedSlopeDistance = (.3f - .3f * Mathf.Sin(90f - angle))/Mathf.Sin(90f - angle);
-            realSlopeDistance = groundCheck.transform.position.y - slopeHit.transform.position.y;
+            expectedSlopeDistance = .3f / Mathf.Cos(angle * Mathf.PI/180f) - .3f;
+            realSlopeDistance = slopeHit.distance - 1f;
         }
 
-        if(!Physics.Raycast(stepRayGround.transform.position, moveDirection, 0.4f, whatIsGround) && !(Physics.Raycast(groundCheck.position, moveDirection.normalized, 1f, whatIsGround)) && realSlopeDistance <= expectedSlopeDistance && grounded) {
+        // Uses expected ground distance to check if player is ground and projects player velocity orthogonal to the slope/plane
+        if(realSlopeDistance <= expectedSlopeDistance && grounded && state != MovementState.crouching) {
             rb.velocity = Vector3.ProjectOnPlane(rb.velocity, slopeHit.normal);
         }
 
-
-        // Debug.DrawRay(groundCheck.position, moveDirection.normalized, Color.red, 1f);
-        // if(Physics.Raycast(groundCheck.position, moveDirection.normalized, out slopeHit, 1f, whatIsGround)) {
-        //     Debug.Log("big boogs");
-        //     rb.velocity = Vector3.ProjectOnPlane(rb.velocity, slopeHit.normal);
-        // }
-
-        // Debug.Log(Physics.CheckSphere(v2, 0.62f, whatIsGround));
-
-        // if(!Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround) && !OnSlope()) {
-        //     if(Physics.Raycast(groundCheck.position, Vector3.down, 1f, whatIsGround)) {
-        //         rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
-        //     }
-        // }
-
-        // if(rb.velocity.y is > 0 && readyToJump && !OnSlope() && !grounded) {
-        //     Vector3 newVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        //     rb.velocity = newVel;
-        // }
+        /**
+         *  If player is moving up, but isn't on the ground and didn't jump, stop vertical momentum
+         *  Used to handle players exiting slopes
+         */
+        if(rb.velocity.y > 0 && readyToJump && !OnSlope() && !grounded) {
+            Vector3 newVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.velocity = newVel;
+        }
 
         // handle drag
         if(grounded){
@@ -146,33 +141,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /**
+     *  Is called everyframe - dependent on fps when running game;
+     *  Used mostly for player input and interaction to provide fastest things
+     */
     private void Update()
     {
-
+        // take player input :o
         MyInput();
         StateHandler();
 
+        // update grounded if player is within .1f of ground
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
 
-        // Animations
+        // Animations 
+        // * Keep // camera.fieldOfView for future adjustment 
         if(animator != null) {
+            // Air/Jump animation
             if(!grounded) 
             {
                 animator.SetInteger("Speed", 3);
                 
-            }
+            } // Idle animation
             else if(moveDirection == Vector3.zero)
             {
                 animator.SetInteger("Speed", 0);
                 //camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 60, .03f);
                 
-            }
+            } // Walk animation
             else if(!Input.GetKey(KeyCode.LeftShift) || staminaAmount < 0.01)
             {
                 animator.SetInteger("Speed", 1);
                 //camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 60, .03f);
                 
-            }
+            } // Sprint animation
             else if (staminaAmount > 0.01)
             {
                 animator.SetInteger("Speed", 2);
@@ -181,11 +183,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    /**
+     * Get's player input and assigns to variables
+     */
     private void MyInput()
     {
+        // These would be WASD and the arrow keys
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        // If player can jump and is ground, will jump player when jumpKey (space) is pressed
         if(Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -195,38 +203,43 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
+        // Scales player to half size (vertically) and adds force down to keep player grounded
         if(Input.GetKeyDown(crouchKey)) {
             Debug.Log("You're short");
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 7.5f, ForceMode.Impulse);
         }
 
+        // Scale player double size (height)
         if(Input.GetKeyUp(crouchKey)) {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
 
     }
 
+    // Handles what state player is in
+    // Kinda useless imo
     private void StateHandler() {
 
+        // Player is crouching
         if(Input.GetKey(crouchKey)) {
             state = MovementState.crouching;
             moveSpeed = crouchSpeed;
         }
-
-        if(grounded && Input.GetKey(sprintKey) && staminaAmount >= 0.01)
+        // Player is sprinting
+        else if(grounded && Input.GetKey(sprintKey) && staminaAmount >= 0.01)
         {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
             isRunning = true;
-        }
+        } // Player is walking
         else if(grounded && !Input.GetKey(sprintKey) || staminaAmount < 0.01)
         {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
             isRunning = false;
         }
-        else {
+        else { // Player is in air
             state = MovementState.air;
             isRunning = false;
         }
@@ -236,24 +249,30 @@ public class PlayerMovement : MonoBehaviour
     {
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
+        
+        // If on slope we want to have the player move along the the slope angle
         if(OnSlope() && !exitingSlope && state != MovementState.crouching) {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
-            if(rb.velocity.y > 0) {
-                rb.AddForce(Vector3.down * 40f, ForceMode.Force);
+            // Artificial gravity on slope
+            // ? Change in future idk
+            if(true) {
+                rb.AddForce(-slopeHit.normal * 40f, ForceMode.Force);
             }
         }
-
+        // If not on slope, adds force in direction player is looking/pressing
         else if(grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
         else if(!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
+        // disable gravity on slope
         rb.useGravity = !OnSlope();
     }
 
+
+    // Controls the speed of character rigidbody
     private void SpeedControl()
     {
 
@@ -274,6 +293,9 @@ public class PlayerMovement : MonoBehaviour
                 limitedVel = flatVel.normalized * moveSpeed;
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
+
+            // * Keep this code, its working and used for stamina regen/degen.
+            // * Commented out for development/testing
             // if(Input.GetKey(sprintKey) && staminaAmount >= 0.01 && flatVel.magnitude > 1)
             // {
             //     isRunning = true;
@@ -299,6 +321,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    // Time until stamina begins to regen after sprinting
     IEnumerator staminaRegen() {
         yield return new WaitForSeconds(2f);
         if(!isRunning) {
@@ -306,6 +329,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Adds force upward when called
     private void Jump()
     {
 
@@ -317,6 +341,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
+    // Called when player has landed
     private void ResetJump()
     {
         exitingSlope = false;
@@ -324,6 +349,7 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
+    // Returns if player is on slope as well as updates slopeHit
     private bool OnSlope() {
         if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f, whatIsGround)) {
             angle = Vector3.Angle(Vector3.up, slopeHit.normal);
@@ -333,23 +359,8 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
     
+    // Return vector orthogonal to slope
     private Vector3 GetSlopeMoveDirection() {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
-    }
-
-    void stepController() {
-        
-        RaycastHit hitLower;
-
-        Vector3 playerDir = new Vector3(rb.velocity.normalized.x, 0f, rb.velocity.normalized.z);
-        Debug.DrawRay(stepRayGround.transform.position, playerDir, Color.red, .4f);
-        if(Physics.Raycast(stepRayGround.transform.position, moveDirection, out hitLower, 0.4f + 1.5f/moveSpeed, whatIsGround)) {
-            RaycastHit hitUpper;
-            float stepAngle = Vector3.Angle(Vector3.up, hitLower.normal);
-            if(!Physics.Raycast(stepRayHeight.transform.position, moveDirection, out hitUpper, 0.5f + 1.5f/moveSpeed, whatIsGround) && stepAngle > 60) {
-                Debug.Log("Stepped up");
-                rb.position += new Vector3(0f, stepForce * Time.fixedDeltaTime, 0f);
-            }
-        }
     }
 }
