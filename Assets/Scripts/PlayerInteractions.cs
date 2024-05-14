@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PickUp_RayCast : MonoBehaviour
+// When a player looks at an object that should be interacted with by the player, it will display the expected ui
+public class PlayerInteractions : MonoBehaviour
 {
 
     public WeaponController wc;
@@ -91,23 +92,6 @@ public class PickUp_RayCast : MonoBehaviour
                 
             }
         }
-        // if(Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, conversationLayer))
-        // {
-        //     BunnyTalk.SetActive(true);
-        //     if(Input.GetKey(KeyCode.E) && num_rabbits < 15)
-        //     {
-        //         Conversation.SetActive(true);
-        //     }
-        //     if(Input.GetKey(KeyCode.E) && num_rabbits == 15)
-        //     {
-        //         gameFinish.SetActive(true);
-        //     }
-        // }
-        // if(!Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, conversationLayer))
-        // {
-        //     Conversation.SetActive(false);
-        //     gameFinish.SetActive(false);
-        // }
 
     }
 
