@@ -7,7 +7,7 @@ public class ParticleToPoint : MonoBehaviour
 
     public Transform point;
 
-    public ParticleSystem particleSystem;
+    public ParticleSystem pSystem;
 
     private static ParticleSystem.Particle[] particles = new ParticleSystem.Particle[1000];
     private static Vector3[] targetPosition = new Vector3[1000];
@@ -33,10 +33,10 @@ public class ParticleToPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        count = particleSystem.GetParticles(particles);
+        count = pSystem.GetParticles(particles);
         
         for(int i = 0; i < count; i++) {
-            speed = 0.05f;
+            speed = 0.1f;
             if(flag2) {
                 targetPosition[i] = point.localPosition;
             }
@@ -58,6 +58,6 @@ public class ParticleToPoint : MonoBehaviour
             }
         }
         Debug.Log(targetPosition[0]);
-        particleSystem.SetParticles(particles, count);
+        pSystem.SetParticles(particles, count);
     }
 }

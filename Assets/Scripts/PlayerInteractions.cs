@@ -64,7 +64,7 @@ public class PlayerInteractions : MonoBehaviour
                 spiritParticles = hit.transform.gameObject.GetComponentInParent<ParticleSystem>();
 
                 ptp.enabled = true;
-                ptp.particleSystem = spiritParticles;
+                ptp.pSystem = spiritParticles;
 
 
                 //Debug.Log(spiritParticles.name);

@@ -78,7 +78,7 @@ public class WeaponController : MonoBehaviour
 
         if(isSpecialAttacking && Input.GetMouseButtonDown(0)) {
             ptp.enabled = true;
-            ptp.particleSystem = ability1_Left;
+            ptp.pSystem = ability1_Left;
         }
 
 

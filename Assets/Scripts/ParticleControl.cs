@@ -11,7 +11,7 @@ public class ParticleControl : MonoBehaviour
     public ParticleSystem system;
     private static ParticleSystem.Particle[] particles = new ParticleSystem.Particle[1000];
     public int count;
-    public Transform target;
+    private Transform target;
 
     // Start is called before the first frame update
     void Start()
