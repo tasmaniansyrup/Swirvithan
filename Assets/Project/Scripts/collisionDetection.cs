@@ -34,10 +34,4 @@ public class collisionDetection : MonoBehaviour
             enemyScript.isAlive = false;
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

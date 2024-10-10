@@ -33,16 +33,20 @@ public class enemyAI : MonoBehaviour
             // If player is in enemy range and is not in attack range
             if(playerDistance < targetDistance && playerDistance > attackDistance) 
             {
+                Vector3 flatVel = new Vector3(enemyRB.velocity.x, 0f, enemyRB.velocity.z);
+
                 // Rotates object to look at player
+
                 gameObject.transform.LookAt(player.transform);
 
                 // Adds force to enemy in direction of player
                 enemyRB.AddForce(gameObject.transform.forward.normalized * enemySpeed * 10f, ForceMode.Force);
 
                 // Prevents enemy from going over set speed
-                if(enemyRB.velocity.magnitude > enemySpeed)
+                if(flatVel.magnitude > enemySpeed)
                 {
-                    enemyRB.velocity = enemyRB.velocity.normalized * enemySpeed;
+                    Vector3 limitedVel = flatVel.normalized * enemySpeed;
+                    enemyRB.velocity = new Vector3(limitedVel.x, enemyRB.velocity.y, limitedVel.z);
                 }
 
             } // Stops enemy if close to player
