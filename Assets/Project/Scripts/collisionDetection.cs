@@ -36,6 +36,20 @@ public class collisionDetection : MonoBehaviour
             
                 enemyScript.isAlive = false;
                 malletSmack.Play();
+                
+
+                if(other.gameObject.name.Contains("Arm")) {
+                    Debug.Log("Arm - 15");
+                }
+                else if(other.gameObject.name.Contains("Leg")) {
+                    Debug.Log("Leg - 20");
+                }
+                else if(other.gameObject.name.Contains("head")) {
+                    Debug.Log("Head! - 35");
+                }
+                else if(other.gameObject.name.Contains("torso")) {
+                    Debug.Log("Torso - 30");
+                }
             }
         }
     }
