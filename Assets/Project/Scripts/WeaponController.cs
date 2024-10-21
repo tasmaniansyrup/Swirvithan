@@ -24,7 +24,13 @@ public class WeaponController : MonoBehaviour
 
     [Header("Player Status")]
 
-    public bool isAttacking = false;
+    public bool isAttacking;
+
+    void Awake()
+    {
+        malletHitbox.SetActive(false);
+        isAttacking = false;
+    }
 
     // Update is called once per frame cool!
     void Update()
@@ -34,13 +40,14 @@ public class WeaponController : MonoBehaviour
             if(Input.GetKey(chainSawButton))
             {
                 playerAnimator.SetInteger("Attack", 2);
-
+                playerAnimator.speed = 1;
                 //isAttacking = true;
 
             }
             else if(Input.GetKey(malletButton))
             {
                 playerAnimator.SetInteger("Attack", 1);
+                playerAnimator.speed = 1;
 
                 isAttacking = true;
 

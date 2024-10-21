@@ -73,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
     public MovementState state;
+
+    public WeaponController wc;
+
     public enum MovementState
     {
         walking,
@@ -166,26 +169,30 @@ public class PlayerMovement : MonoBehaviour
         // * Keep // camera.fieldOfView for future adjustment 
         if(animator != null) {
             // Air/Jump animation
-            if(!grounded) 
+            if(!grounded && !wc.isAttacking) 
             {
-                animator.SetInteger("Speed", 3);
+                animator.speed = 0.2f;
+                Debug.Log("Air born!");
                 
             } // Idle animation
             else if(moveDirection == Vector3.zero)
             {
                 animator.SetInteger("Speed", 0);
+                animator.speed = 1;
                 //camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 60, .03f);
                 
             } // Walk animation
             else if(!Input.GetKey(KeyCode.LeftShift) || staminaAmount < 0.01)
             {
                 animator.SetInteger("Speed", 1);
+                animator.speed = 1;
                 //camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 60, .03f);
                 
             } // Sprint animation
             else if (staminaAmount > 0.01)
             {
                 animator.SetInteger("Speed", 2);
+                animator.speed = 1;
                 //camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 65, .1f);
             }
         }

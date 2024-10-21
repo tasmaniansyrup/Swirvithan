@@ -536,6 +536,7 @@ MonoBehaviour:
   staminaAmount: 100
   isRegening: 0
   state: 0
+  wc: {fileID: 599518749}
 --- !u!114 &145297912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,8 +554,6 @@ MonoBehaviour:
   backwardInputField: {fileID: 0}
   leftInputField: {fileID: 0}
   rightInputField: {fileID: 0}
-  selectedField: {fileID: 0}
-  isFocused: 0
 --- !u!4 &201384695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6207193090530259524, guid: e53af0c0276b639438af4ec6de22c016,
