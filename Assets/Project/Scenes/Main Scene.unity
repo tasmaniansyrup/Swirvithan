@@ -429,6 +429,7 @@ GameObject:
   - component: {fileID: 145297910}
   - component: {fileID: 145297909}
   - component: {fileID: 145297911}
+  - component: {fileID: 145297912}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -507,9 +508,14 @@ MonoBehaviour:
   airMultiplier: 0.5
   crouchSpeed: 4
   crouchYScale: 0.5
+  updateControls: {fileID: 145297912}
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
+  forwardKey: 119
+  backwardKey: 115
+  leftKey: 97
+  rightKey: 100
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -530,12 +536,31 @@ MonoBehaviour:
   staminaAmount: 100
   isRegening: 0
   state: 0
+--- !u!114 &145297912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145297908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5193fa2cccebff441af76f893400f77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 145297911}
+  forwardInputField: {fileID: 0}
+  backwardInputField: {fileID: 0}
+  leftInputField: {fileID: 0}
+  rightInputField: {fileID: 0}
+  selectedField: {fileID: 0}
+  isFocused: 0
 --- !u!4 &201384695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6207193090530259524, guid: e53af0c0276b639438af4ec6de22c016,
     type: 3}
   m_PrefabInstance: {fileID: 1034147241}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabAsset: {fileID: 0
 --- !u!1 &301206435
 GameObject:
   m_ObjectHideFlags: 0
