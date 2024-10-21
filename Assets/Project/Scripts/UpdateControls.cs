@@ -3,36 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public PlayerMovement playerMovement;
-    public InputField forwardInputField;
-    public InputField backwardInputField;
-    public InputField leftInputField;
-    public InputField rightInputField;
-    public InputField selectedField;
-    public bool isFocused = false;
+    public TMP_InputField forwardInputField;
+    public TMP_InputField backwardInputField;
+    public TMP_InputField leftInputField;
+    public TMP_InputField rightInputField;
+    private TMP_InputField selectedField;
+    private bool isFocused = false;
+    private bool isFirstInput;
 
-    void updateControls() 
+    void Update() 
     {
-        if (selectedField != null && Input.anyKeyDown)
+        if (selectedField != null && isFocused)
         {
-            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            if (Input.anyKeyDown)
             {
-                if (Input.GetKeyDown(keyCode))
+                foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
                 {
-                    selectedField.text = keyCode.ToString();  // Update the text of the selected InputField
-                    SaveControls(selectedField, keyCode);      // Save the keybinding
-                    selectedField = null;                     // Deselect after setting the key
-                    EventSystem.current.SetSelectedGameObject(null);  // Unfocus the InputField
-                    break;
+                    if (isFirstInput)
+                    {
+                        isFirstInput = false;
+                        return;
+                    }
+
+                    if (Input.GetKeyDown(keyCode))
+                    {
+                        selectedField.text = keyCode.ToString();  // Update the text of the selected InputField
+                        SaveControls(selectedField, keyCode);      // Save the keybinding
+                        selectedField = null;                     // Deselect after setting the key
+                        EventSystem.current.SetSelectedGameObject(null);  // Unfocus the InputField
+                    }
                 }
             }
         }
     }
 
-    public void SaveControls(InputField inputField, KeyCode keyCode)
+    public void SaveControls(TMP_InputField inputField, KeyCode keyCode)
     {
         if (inputField == forwardInputField)
         {
@@ -53,9 +63,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
     }
 
     public void LoadControls()
-    {
-        PlayerPrefs.DeleteAll();  // DELETE THIS
-        
+    {        
         if (PlayerPrefs.HasKey("ForwardKey"))
         {
             playerMovement.forwardKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ForwardKey"));
@@ -94,11 +102,17 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        selectedField = eventData.selectedObject.GetComponent<InputField>();  // Store the selected InputField
+        Debug.Log("selected");
+        isFirstInput = true;
+        isFocused = true;
+        selectedField = eventData.selectedObject.GetComponent<TMP_InputField>();  // Store the selected InputField
+        selectedField.caretWidth = 0;
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
+        Debug.Log("deselected");
+        isFocused = false;
         selectedField = null;
     }
 }
