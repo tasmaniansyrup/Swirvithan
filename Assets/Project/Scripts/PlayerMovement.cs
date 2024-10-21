@@ -27,9 +27,14 @@ public class PlayerMovement : MonoBehaviour
     private float startYScale;
 
     [Header("Keybinds")]
+    public UpdateControls updateControls;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode forwardKey = KeyCode.W;
+    public KeyCode backwardKey = KeyCode.S;
+    public KeyCode leftKey = KeyCode.A;
+    public KeyCode rightKey = KeyCode.D;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -78,6 +83,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        // Load controls
+        updateControls.LoadControls();
+
         //animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -190,8 +198,28 @@ public class PlayerMovement : MonoBehaviour
     private void MyInput()
     {
         // These would be WASD and the arrow keys
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        // horizontalInput = Input.GetAxisRaw("Horizontal");
+        // verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = 0;
+        verticalInput = 0;
+
+        if (Input.GetKey(leftKey))
+        {
+            horizontalInput -= 1f;  // move left
+        }
+        if (Input.GetKey(rightKey))
+        {
+            horizontalInput += 1f;  // move right
+        }
+        if (Input.GetKey(backwardKey))
+        {
+            verticalInput -= 1f;  // move backward
+        }
+        if (Input.GetKey(forwardKey))
+        {
+            verticalInput += 1f;  // move forward
+        }
+        
 
         // If player can jump and is ground, will jump player when jumpKey (space) is pressed
         if(Input.GetKey(jumpKey) && readyToJump && grounded)
