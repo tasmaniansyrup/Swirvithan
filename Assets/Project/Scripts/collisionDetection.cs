@@ -7,9 +7,12 @@ public class collisionDetection : MonoBehaviour
 
     public Rigidbody enemyRB;
     public enemyAI enemyScript;
-    public float knockback;
     public GameObject player;
     public AudioSource malletSmack;
+    public int armDmg;
+    public int legDmg;
+    public int headDmg;
+    public int torsoDmg;
 
     // Called when a collider is touching the trigger (weapon collider)
     private void OnTriggerStay(Collider other)
@@ -22,20 +25,28 @@ public class collisionDetection : MonoBehaviour
             // Gets enemy script from collider
             enemyScript = enemyRB.gameObject.GetComponent<enemyAI>();
 
-            if(enemyScript.isAlive)
+            if(enemyScript.isAlive && !enemyScript.gotHit)
             {
-                // Removes rotational restraints
-                enemyRB.constraints = RigidbodyConstraints.None;
+                enemyScript.gotHit = true;
 
-                // Creates a vector pointing from the player to the enemy for the knockback direction
-                Vector3 knockbackDir = player.transform.position - enemyRB.gameObject.transform.position;
-                knockbackDir.y = knockbackDir.y + 1;
-
-                // knocks enemy back
-                enemyRB.AddForce(knockbackDir.normalized * -knockback, ForceMode.Impulse);
-            
-                enemyScript.isAlive = false;
                 malletSmack.Play();
+
+                if(other.gameObject.name.Contains("Arm")) {
+                    Debug.Log("Arm - 15");
+                    enemyScript.enemyHealth -= armDmg;
+                }
+                else if(other.gameObject.name.Contains("Leg")) {
+                    Debug.Log("Leg - 20");
+                    enemyScript.enemyHealth -= legDmg;
+                }
+                else if(other.gameObject.name.Contains("head")) {
+                    Debug.Log("Head! - 35");
+                    enemyScript.enemyHealth -= headDmg;
+                }
+                else if(other.gameObject.name.Contains("torso")) {
+                    Debug.Log("Torso - 30");
+                    enemyScript.enemyHealth -= torsoDmg;
+                }
             }
         }
     }
