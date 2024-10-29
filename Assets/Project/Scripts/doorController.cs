@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,9 +26,12 @@ public class doorController : MonoBehaviour
 
     public void openDoor()
     {
-        hinge.useMotor = true;
-        IEnumerator stopMotor = stopHingeMotor();
-        StartCoroutine(stopMotor);
+        if(hinge != null)
+        {
+            hinge.useMotor = true;
+            IEnumerator stopMotor = stopHingeMotor();
+            StartCoroutine(stopMotor);
+        }
     }
 
     public void bustOpenDoor(Transform player) 
