@@ -7,6 +7,7 @@ public class collisionDetection : MonoBehaviour
 
     public Rigidbody enemyRB;
     public enemyAI enemyScript;
+    public doorController dc;
     public GameObject player;
     public AudioSource malletSmack;
     public int armDmg;
@@ -48,6 +49,10 @@ public class collisionDetection : MonoBehaviour
                     enemyScript.enemyHealth -= torsoDmg;
                 }
             }
+        }
+        else if(other.tag == "Door") {
+            dc = other.gameObject.GetComponent<doorController>();
+            dc.bustOpenDoor(player.transform);
         }
     }
 }
