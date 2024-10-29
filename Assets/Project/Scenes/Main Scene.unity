@@ -508,7 +508,6 @@ MonoBehaviour:
   airMultiplier: 0.5
   crouchSpeed: 4
   crouchYScale: 0.5
-  updateControls: {fileID: 145297912}
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
@@ -543,7 +542,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145297908}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5193fa2cccebff441af76f893400f77d, type: 3}
   m_Name: 
@@ -553,8 +552,7 @@ MonoBehaviour:
   backwardInputField: {fileID: 0}
   leftInputField: {fileID: 0}
   rightInputField: {fileID: 0}
-  selectedField: {fileID: 0}
-  isFocused: 0
+  pauseInputField: {fileID: 0}
 --- !u!4 &201384695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6207193090530259524, guid: e53af0c0276b639438af4ec6de22c016,
