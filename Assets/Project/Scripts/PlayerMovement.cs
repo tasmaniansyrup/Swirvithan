@@ -83,8 +83,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        // Load controls
-        UpdateControls.Instance.LoadControls();
+        if (UpdateControls.InstanceExists)
+        {
+            // Load controls
+            Debug.Log("crabapples");
+            UpdateControls.Instance.LoadControls();
+        }
 
         //animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();

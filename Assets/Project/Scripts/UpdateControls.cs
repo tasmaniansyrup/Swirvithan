@@ -24,6 +24,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
     private bool isFocused = false;
     private bool isFirstInput;
     public static UpdateControls Instance { get; private set; }
+    public static bool InstanceExists => Instance != null;
 
     private void Awake()
     {
