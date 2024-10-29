@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float startYScale;
 
     [Header("Keybinds")]
-    public UpdateControls updateControls;
+    private UpdateControls updateControls;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
@@ -86,8 +86,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        // Load controls
-        updateControls.LoadControls();
+        if (UpdateControls.InstanceExists)
+        {
+            // Load controls
+            Debug.Log("crabapples");
+            UpdateControls.Instance.LoadControls();
+        }
 
         //animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
