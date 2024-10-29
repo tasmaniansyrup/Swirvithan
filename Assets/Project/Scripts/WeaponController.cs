@@ -39,9 +39,9 @@ public class WeaponController : MonoBehaviour
         {
             if(Input.GetKey(chainSawButton))
             {
-                playerAnimator.SetInteger("Attack", 2);
-                playerAnimator.speed = 1;
-                //isAttacking = true;
+                // playerAnimator.SetInteger("Attack", 2);
+                // playerAnimator.speed = 1;
+                // isAttacking = true;
 
             }
             else if(Input.GetKey(malletButton))
