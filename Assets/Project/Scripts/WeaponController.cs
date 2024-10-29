@@ -27,6 +27,10 @@ public class WeaponController : MonoBehaviour
     public bool isAttacking = false;
 
     // Update is called once per frame cool!
+
+    public void Awake() {
+        malletHitbox.SetActive(false);
+    }
     void Update()
     {
         if(!isAttacking)
