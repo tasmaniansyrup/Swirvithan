@@ -86,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
         if (UpdateControls.InstanceExists)
         {
             // Load controls
-            Debug.Log("crabapples");
             UpdateControls.Instance.LoadControls();
         }
 
