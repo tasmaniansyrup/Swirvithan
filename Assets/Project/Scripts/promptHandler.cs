@@ -29,12 +29,15 @@ public class promptHandler : MonoBehaviour
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.red, 1f);
 
         if(canInteract){
-            interactPrompt.SetActive(true);
-            if(Input.GetKey(interactKey))
+            doorController dc = playerCursor.collider.GetComponent<doorController>();
+            if(dc.hinge != null)
             {
-                doorController dc = playerCursor.collider.GetComponent<doorController>();
-                dc.openDoor();
-                Debug.Log("Fartmxdownaclonsd");
+                interactPrompt.SetActive(true);
+                if(Input.GetKey(interactKey))
+                {
+                    dc.openDoor();
+                    Debug.Log("Fartmxdownaclonsd");
+                }
             }
         } 
         else {
