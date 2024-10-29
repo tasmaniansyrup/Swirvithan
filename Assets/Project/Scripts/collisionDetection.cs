@@ -50,7 +50,7 @@ public class collisionDetection : MonoBehaviour
                 }
             }
         }
-        else if(other.tag == "Door" && dc.hinge != null) {
+        else if(other.tag == "Door") {
             dc = other.gameObject.GetComponent<doorController>();
             dc.bustOpenDoor(player.transform);
         }
