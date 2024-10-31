@@ -10,6 +10,7 @@ public class collisionDetection : MonoBehaviour
     public doorController dc;
     public GameObject player;
     public AudioSource malletSmack;
+    public ParticleSystem bloodVFX;
     public int armDmg;
     public int legDmg;
     public int headDmg;
@@ -31,6 +32,7 @@ public class collisionDetection : MonoBehaviour
                 enemyScript.gotHit = true;
 
                 malletSmack.Play();
+                bloodVFX.Play();
 
                 if(other.gameObject.name.Contains("Arm")) {
                     Debug.Log("Arm - 15");
@@ -55,4 +57,5 @@ public class collisionDetection : MonoBehaviour
             dc.bustOpenDoor(player.transform);
         }
     }
+
 }
