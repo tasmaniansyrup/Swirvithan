@@ -33,13 +33,13 @@ public class WeaponController : MonoBehaviour
     }
     void Update()
     {
-        if(!isAttacking)
+        if(!isAttacking && playerAnimator != null)
         {
-            if(Input.GetKey(chainSawButton))
+            if(Input.GetKeyDown(chainSawButton))
             {
-                // playerAnimator.SetInteger("Attack", 2);
+                playerAnimator.SetInteger("Attack", 2);
 
-                // isAttacking = true;
+                isAttacking = true;
 
             }
             else if(Input.GetKey(malletButton))
@@ -56,7 +56,16 @@ public class WeaponController : MonoBehaviour
                 StartCoroutine(malletDuration);
             }
         }
-        else
+        else if (playerAnimator.GetInteger("Attack") == 2)
+        {
+            if(Input.GetKeyUp(chainSawButton))
+            {
+                playerAnimator.SetInteger("Attack", 0);
+                
+                isAttacking = false;
+            }
+        }
+        else 
         {
             playerAnimator.SetInteger("Attack", 0);
         }
