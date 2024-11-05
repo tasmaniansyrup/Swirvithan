@@ -18,16 +18,22 @@ public class enemyAI : MonoBehaviour
     public float knockback;
     public bool gotHit;
     public bool canBeHit;
+    public Animator enemyAnimator;
+    public GameObject rig;
+    public GameObject enemyColliders;
 
 
     // Makes enemy alive when enemy first spawns
     void Awake()
     {
         isAlive = true;
+        canBeHit = true;
+        //rig.SetActive(false);
+        enemyColliders.SetActive(true);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Only runs if enemy is alive
         if(isAlive)
@@ -38,8 +44,12 @@ public class enemyAI : MonoBehaviour
             Vector3 enemyLookAt = new Vector3(player.transform.position.x, gameObject.transform.position.y, player.transform.position.z);
 
             // If player is in enemy range and is not in attack range
-            if(playerDistance < targetDistance && playerDistance > attackDistance) 
+            if(playerDistance < targetDistance && playerDistance > attackDistance && canBeHit) 
             {
+
+                enemyAnimator.SetInteger("Speed", 1);
+                enemyAnimator.SetInteger("Attack", 1);
+
                 Vector3 flatVel = new Vector3(enemyRB.velocity.x, 0f, enemyRB.velocity.z);
 
                 // Rotates object to look at player
@@ -53,17 +63,19 @@ public class enemyAI : MonoBehaviour
 
 
                 // Prevents enemy from going over set speed
-                if(flatVel.magnitude > enemySpeed)
+                if(flatVel.magnitude > enemySpeed && canBeHit)
                 {
                     Vector3 limitedVel = flatVel.normalized * enemySpeed;
                     enemyRB.velocity = new Vector3(limitedVel.x, enemyRB.velocity.y, limitedVel.z);
                 }
 
             } // Stops enemy if close to player
-            else if(playerDistance <= attackDistance)
+            else if(playerDistance <= attackDistance && canBeHit)
             {
                 gameObject.transform.LookAt(enemyLookAt);
                 enemyRB.velocity = Vector3.zero;
+                enemyAnimator.SetInteger("Speed", 0);
+                enemyAnimator.SetInteger("Attack", 2);
             }
 
             checkHealth();
@@ -72,6 +84,7 @@ public class enemyAI : MonoBehaviour
             {
                 canBeHit = false;
                 IEnumerator rgh = resetGotHit(.1f);
+                enemyAnimator.SetBool("Hit", true);
                 StartCoroutine(rgh);
             }
         }
@@ -82,6 +95,11 @@ public class enemyAI : MonoBehaviour
         if(enemyHealth <= 0)
         {
             enemyHealth = 0;
+
+            enemyAnimator.enabled = false;
+            rig.SetActive(true);
+            enemyRB.isKinematic = true;
+            enemyColliders.SetActive(false);
 
             // Removes rotational restraints
             enemyRB.constraints = RigidbodyConstraints.None;
@@ -101,6 +119,8 @@ public class enemyAI : MonoBehaviour
     public IEnumerator resetGotHit(float timeHit) 
     {
         yield return new WaitForSeconds(timeHit);
+        enemyAnimator.SetBool("Hit", false);
+        canBeHit = true;
         gotHit = false;
     }
 }

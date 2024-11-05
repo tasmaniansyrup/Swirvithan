@@ -31,8 +31,14 @@ public class collisionDetection : MonoBehaviour
             {
                 enemyScript.gotHit = true;
 
+
                 malletSmack.Play();
                 bloodVFX.Play();
+                
+                Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
+                knockbackDir.y = knockbackDir.y + 1;
+
+                enemyRB.AddForce(knockbackDir.normalized * -10, ForceMode.Impulse);
 
                 if(other.gameObject.name.Contains("Arm")) {
                     Debug.Log("Arm - 15");
