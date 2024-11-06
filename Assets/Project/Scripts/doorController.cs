@@ -28,9 +28,30 @@ public class doorController : MonoBehaviour
     {
         if(hinge != null)
         {
-            hinge.useMotor = true;
-            IEnumerator stopMotor = stopHingeMotor();
-            StartCoroutine(stopMotor);
+            if(hinge.angle < 90)
+            {
+                var motor = hinge.motor;
+                motor.force = 100;
+                motor.targetVelocity = 90;
+
+                hinge.motor = motor;
+                hinge.useMotor = true;
+                
+                IEnumerator stopMotor = stopHingeMotor();
+                StartCoroutine(stopMotor);
+            } else if(hinge.angle >= 90)
+            {
+
+                var motor = hinge.motor;
+                motor.force = 100;
+                motor.targetVelocity = -90;
+
+                hinge.motor = motor;
+
+                hinge.useMotor = true;
+                IEnumerator stopMotor = stopHingeMotor();
+                StartCoroutine(stopMotor);
+            }
         }
     }
 
