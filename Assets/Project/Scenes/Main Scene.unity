@@ -6421,7 +6421,7 @@ CharacterJoint:
     limit: 40
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -11771,9 +11771,9 @@ GameObject:
   - component: {fileID: 392082690}
   - component: {fileID: 392082689}
   - component: {fileID: 392082688}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11804,6 +11804,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1064407901}
   rig: {fileID: 1279115313}
   enemyColliders: {fileID: 429725642}
+  ragdoll: {fileID: 1891016745}
 --- !u!54 &392082689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12079,7 +12080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &429725643
 Transform:
   m_ObjectHideFlags: 0
@@ -13874,7 +13875,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.001
+  m_Radius: 0.0007
   m_Height: 0.003
   m_Direction: 1
   m_Center: {x: 0, y: -0.001, z: 0}
@@ -13915,7 +13916,7 @@ CharacterJoint:
     limit: 40
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -15406,6 +15407,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   rig: {fileID: 0}
   enemyColliders: {fileID: 0}
+  ragdoll: {fileID: 0}
 --- !u!54 &1009174553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18032,6 +18034,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   rig: {fileID: 0}
   enemyColliders: {fileID: 0}
+  ragdoll: {fileID: 0}
 --- !u!54 &1321126970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18984,7 +18987,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.001
+  m_Radius: 0.0007
   m_Height: 0.003
   m_Direction: 1
   m_Center: {x: 0, y: -0.001, z: 0}
@@ -19025,7 +19028,7 @@ CharacterJoint:
     limit: 40
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -19729,7 +19732,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 310d99fbe7c245340b50da85e9e0e294, type: 2}
+      objectReference: {fileID: 2100000, guid: dbdb2cc6c135d06449740afac63968ab, type: 2}
     - target: {fileID: 919132149155446097, guid: adc4e569934e91b4a83d676305cb291e,
         type: 3}
       propertyPath: m_Name
@@ -24801,6 +24804,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   rig: {fileID: 0}
   enemyColliders: {fileID: 0}
+  ragdoll: {fileID: 0}
 --- !u!54 &1628040582
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27617,6 +27621,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   rig: {fileID: 0}
   enemyColliders: {fileID: 0}
+  ragdoll: {fileID: 0}
 --- !u!54 &2012641233
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27782,6 +27787,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   rig: {fileID: 0}
   enemyColliders: {fileID: 0}
+  ragdoll: {fileID: 0}
 --- !u!54 &2015658319
 Rigidbody:
   m_ObjectHideFlags: 0

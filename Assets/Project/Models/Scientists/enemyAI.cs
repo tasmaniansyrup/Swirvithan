@@ -21,6 +21,7 @@ public class enemyAI : MonoBehaviour
     public Animator enemyAnimator;
     public GameObject rig;
     public GameObject enemyColliders;
+    public Rigidbody ragdoll;
 
 
     // Makes enemy alive when enemy first spawns
@@ -28,7 +29,7 @@ public class enemyAI : MonoBehaviour
     {
         isAlive = true;
         canBeHit = true;
-        //rig.SetActive(false);
+        rig.SetActive(false);
         enemyColliders.SetActive(true);
     }
 
@@ -97,19 +98,20 @@ public class enemyAI : MonoBehaviour
             enemyHealth = 0;
 
             enemyAnimator.enabled = false;
-            rig.SetActive(true);
             enemyRB.isKinematic = true;
             enemyColliders.SetActive(false);
+            rig.SetActive(true);
 
             // Removes rotational restraints
             enemyRB.constraints = RigidbodyConstraints.None;
 
             // Creates a vector pointing from the player to the enemy for the knockback direction
             Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
-            knockbackDir.y = knockbackDir.y + 1;
+            // knockbackDir.y = knockbackDir.y + 1;
 
             // knocks enemy back
-            enemyRB.AddForce(knockbackDir.normalized * -knockback, ForceMode.Impulse);
+            ragdoll.AddForce(knockbackDir.normalized * -knockback, ForceMode.Impulse);
+
             Debug.Log("He dead!");
         
             isAlive = false;
