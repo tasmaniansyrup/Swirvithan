@@ -549,6 +549,104 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleIncrease: {x: 1.5, y: 1.5, z: 1.5}
+--- !u!1001 &87008184
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 896335810567873187, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: leftInputField
+      value: 
+      objectReference: {fileID: 1866777579}
+    - target: {fileID: 896335810567873187, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: pauseInputField
+      value: 
+      objectReference: {fileID: 1158914231}
+    - target: {fileID: 896335810567873187, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: rightInputField
+      value: 
+      objectReference: {fileID: 1546694620}
+    - target: {fileID: 896335810567873187, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: forwardInputField
+      value: 
+      objectReference: {fileID: 2090486564}
+    - target: {fileID: 896335810567873187, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: backwardInputField
+      value: 
+      objectReference: {fileID: 1888014113}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.910309
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3566303
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.240071
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700263153664664525, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144153165354786086, guid: 7f87d429a50eb95439404256ce06d9fd,
+        type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f87d429a50eb95439404256ce06d9fd, type: 3}
 --- !u!1001 &110348482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3810,7 +3908,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnSelect
           m_Mode: 0
@@ -3826,7 +3924,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnDeselect
           m_Mode: 0
@@ -4725,56 +4823,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486010095}
   m_CullTransparentMesh: 1
---- !u!1 &1486053645
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1486053647}
-  - component: {fileID: 1486053646}
-  m_Layer: 0
-  m_Name: ControlsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1486053646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486053645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5193fa2cccebff441af76f893400f77d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
-  forwardInputField: {fileID: 2090486564}
-  backwardInputField: {fileID: 1888014113}
-  leftInputField: {fileID: 1866777579}
-  rightInputField: {fileID: 1546694620}
-  pauseInputField: {fileID: 1158914231}
---- !u!4 &1486053647
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486053645}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.910309, y: 2.3566303, z: -7.240071}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1518782589
 GameObject:
   m_ObjectHideFlags: 0
@@ -5261,7 +5309,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnSelect
           m_Mode: 0
@@ -5277,7 +5325,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnDeselect
           m_Mode: 0
@@ -6240,7 +6288,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnSelect
           m_Mode: 0
@@ -6256,7 +6304,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnDeselect
           m_Mode: 0
@@ -6644,7 +6692,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnSelect
           m_Mode: 0
@@ -6660,7 +6708,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnDeselect
           m_Mode: 0
@@ -7596,7 +7644,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnSelect
           m_Mode: 0
@@ -7612,7 +7660,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1486053646}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
           m_MethodName: OnDeselect
           m_Mode: 0
@@ -7753,7 +7801,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1486053646}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UpdateControls, Assembly-CSharp
         m_MethodName: ResetKeybinds
         m_Mode: 1
@@ -7969,4 +8017,4 @@ SceneRoots:
   - {fileID: 1069119235}
   - {fileID: 301667457}
   - {fileID: 53329089}
-  - {fileID: 1486053647}
+  - {fileID: 87008184}

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System.Reflection;
+using UnityEngine.SceneManagement;
 
 public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
@@ -20,7 +21,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
     private TMP_InputField selectedField;
 
     private Dictionary<TMP_InputField, string> inputFieldsDict;
-    private Dictionary<string, KeyCode> defaultKeyDict;
+    public Dictionary<string, KeyCode> defaultKeyDict;
     private bool isFocused = false;
     private bool isFirstInput;
     public static UpdateControls Instance { get; private set; }
@@ -32,12 +33,15 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("UpdateControls instance created: " + gameObject.name);
+
+            Debug.Log("GameManager instance created: " + SceneManager.GetActiveScene().name);
+
             InitializeControls();
         }
         else 
         {
-            Debug.Log("bruh idk");
+            // Destroy(gameObject);
+            // Debug.Log("Duplicate Destroyed");
         }
     }
 
@@ -60,7 +64,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
             {backwardInputField, "backwardKey"},
             {leftInputField, "leftKey"},
             {rightInputField, "rightKey"},
-            {pauseInputField, "Escape"}
+            {pauseInputField, "pauseKey"}
         };
 
         // create our key name -> default key dictionary
@@ -122,6 +126,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 
         // Set new keybind
         PlayerPrefs.SetString(inputFieldsDict[inputField], keyCode.ToString());
+        Debug.Log(inputFieldsDict[inputField] + " set to " + keyCode.ToString());
     }
 
     private void UpdateInputFieldText()
