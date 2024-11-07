@@ -14340,6 +14340,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8974685124754982089, guid: d5f6de4939fe2cf408849f1d489c7db8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 038651638f91fd448af36691d9ca6f68, type: 2}
     - target: {fileID: -8679921383154817045, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14439,17 +14444,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 310d99fbe7c245340b50da85e9e0e294, type: 2}
+      objectReference: {fileID: 2100000, guid: 4f1e0d352134f674b81909d585a9d61e, type: 2}
+    - target: {fileID: -4666131403667412504, guid: d5f6de4939fe2cf408849f1d489c7db8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f1e0d352134f674b81909d585a9d61e, type: 2}
     - target: {fileID: -1461304994638716399, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 310d99fbe7c245340b50da85e9e0e294, type: 2}
+    - target: {fileID: -739050386761552630, guid: d5f6de4939fe2cf408849f1d489c7db8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f1e0d352134f674b81909d585a9d61e, type: 2}
     - target: {fileID: 919132149155446097, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
       propertyPath: m_Name
       value: Lab_Door 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8533233558108618557, guid: d5f6de4939fe2cf408849f1d489c7db8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f1e0d352134f674b81909d585a9d61e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17496,7 +17516,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -12.565506, y: 1.5000002, z: -9.003374}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
