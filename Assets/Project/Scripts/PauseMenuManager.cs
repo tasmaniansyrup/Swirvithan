@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject frontPage;
+    public GameObject settingsMenu;
+    public GameObject statisticsMenu;
     private bool isPaused = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(GetPauseKey()))
+        if (pauseMenu != null && Input.GetKeyDown(GetPauseKey()))
         {
             TogglePauseMenu();
         }
@@ -30,7 +33,12 @@ public class PauseMenuManager : MonoBehaviour
     {
         isPaused = !isPaused;
 
+        // In case the player left these open, make sure they're closed when pausing again
+        settingsMenu.SetActive(false);
+        statisticsMenu.SetActive(false);
+
         pauseMenu.SetActive(isPaused);
+        frontPage.SetActive(isPaused);
 
         if (isPaused)
         {
