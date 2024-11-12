@@ -12,74 +12,26 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
     [Header("Script References")]
     public PlayerMovement playerMovement;
 
-    [Header("Input Fields")]
-    public TMP_InputField forwardInputField;
-    public TMP_InputField backwardInputField;
-    public TMP_InputField leftInputField;
-    public TMP_InputField rightInputField;
-    public TMP_InputField pauseInputField;
     private TMP_InputField selectedField;
-
     private Dictionary<TMP_InputField, string> inputFieldsDict;
-    public Dictionary<string, KeyCode> defaultKeyDict;
+    private Dictionary<string, KeyCode> defaultKeyDict;
+
     private bool isFocused = false;
     private bool isFirstInput;
-    public static UpdateControls Instance { get; private set; }
-    public static bool InstanceExists => Instance != null;
 
-    private void Awake()
+    void Start()
     {
-        if (Instance == null)
+        Debug.Log("Grabbing controls dictionaries from GameManager instance");
+        if (inputFieldsDict == null || defaultKeyDict == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            Debug.Log("GameManager instance created: " + SceneManager.GetActiveScene().name);
-
-            InitializeControls();
+            inputFieldsDict = GameManager.Instance.inputFieldsDict;
+            defaultKeyDict = GameManager.Instance.defaultKeyDict;
         }
-        else 
-        {
-            // Destroy(gameObject);
-            // Debug.Log("Duplicate Destroyed");
-        }
-    }
-
-    void InitializeControls()
-    {
-        // To add a new key to the controls
-        // 1. create new input field variable above
-        // 2. add key to both dictionaries below
-        // 3. we're laughing
-
-        if (forwardInputField == null) Debug.LogError("Forward Input Field is not assigned.");
-        if (backwardInputField == null) Debug.LogError("Backward Input Field is not assigned.");
-        if (leftInputField == null) Debug.LogError("Left Input Field is not assigned.");
-        if (rightInputField == null) Debug.LogError("Right Input Field is not assigned.");
-
-        // create our input field -> key name dictionary
-        inputFieldsDict = new Dictionary<TMP_InputField, string>
-        {
-            {forwardInputField, "forwardKey"},
-            {backwardInputField, "backwardKey"},
-            {leftInputField, "leftKey"},
-            {rightInputField, "rightKey"},
-            {pauseInputField, "pauseKey"}
-        };
-
-        // create our key name -> default key dictionary
-        defaultKeyDict = new Dictionary<string, KeyCode>
-        {
-            {"forwardKey", KeyCode.W},
-            {"backwardKey", KeyCode.S},
-            {"leftKey", KeyCode.A},
-            {"rightKey", KeyCode.D},
-            {"pauseKey", KeyCode.Escape}
-        };
 
         // Update the text of the input fields to reflect keybinds
-        UpdateInputFieldText();    
+        UpdateInputFieldText();
     }
+
     void Update() 
     {
         if (selectedField != null && isFocused)
@@ -126,6 +78,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 
         // Set new keybind
         PlayerPrefs.SetString(inputFieldsDict[inputField], keyCode.ToString());
+        PlayerPrefs.Save();
         Debug.Log(inputFieldsDict[inputField] + " set to " + keyCode.ToString());
     }
 

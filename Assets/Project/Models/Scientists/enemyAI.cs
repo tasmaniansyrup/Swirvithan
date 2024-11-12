@@ -113,6 +113,8 @@ public class enemyAI : MonoBehaviour
             ragdoll.AddForce(knockbackDir.normalized * -knockback, ForceMode.Impulse);
 
             Debug.Log("He dead!");
+
+            GameManager.Instance.enemiesKilled += 1;
         
             isAlive = false;
         }

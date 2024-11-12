@@ -83,13 +83,12 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
-    private void Start()
+    void Start()
     {
-        if (UpdateControls.InstanceExists)
-        {
-            // Load controls
-            UpdateControls.Instance.LoadControls();
-        }
+        Debug.Log("Loading Controls");
+        // Load controls
+        updateControls = FindObjectOfType<UpdateControls>();
+        updateControls.LoadControls();
 
         //animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();

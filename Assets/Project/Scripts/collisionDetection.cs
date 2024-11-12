@@ -31,6 +31,9 @@ public class collisionDetection : MonoBehaviour
             {
                 enemyScript.gotHit = true;
 
+                // Spill blood accordingly
+                GameManager.Instance.gallonsSpilled += UnityEngine.Random.Range(0.5f, 2.5f);
+
 
                 malletSmack.Play();
                 bloodVFX.Play();
