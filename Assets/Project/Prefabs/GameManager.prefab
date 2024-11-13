@@ -46,11 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 0}
-  forwardInputField: {fileID: 0}
-  backwardInputField: {fileID: 0}
-  leftInputField: {fileID: 0}
-  rightInputField: {fileID: 0}
-  pauseInputField: {fileID: 0}
 --- !u!114 &8144153165354786086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,3 +59,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
+  frontPage: {fileID: 0}
+  continueButton: {fileID: 0}
+  settingsMenu: {fileID: 0}
+  statisticsMenu: {fileID: 0}
+  timePlayedText: {fileID: 0}
+  deathsText: {fileID: 0}
+  enemiesKilledText: {fileID: 0}
+  gallonsSpilledText: {fileID: 0}
+  controlsMenu: {fileID: 0}

@@ -21,11 +21,11 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     void Start()
     {
-        Debug.Log("Grabbing controls dictionaries from GameManager instance");
         if (inputFieldsDict == null || defaultKeyDict == null)
         {
             inputFieldsDict = GameManager.Instance.inputFieldsDict;
             defaultKeyDict = GameManager.Instance.defaultKeyDict;
+            Debug.Log("Grabbing controls dictionaries from GameManager instance");
         }
 
         // Update the text of the input fields to reflect keybinds

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class enemyAI : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class enemyAI : MonoBehaviour
     public Animator enemyAnimator;
     public GameObject rig;
     public GameObject enemyColliders;
-    public Rigidbody ragdoll;
+    public Transform spine;
+    public DecalProjector bloodpool;
 
 
     // Makes enemy alive when enemy first spawns
@@ -29,8 +31,10 @@ public class enemyAI : MonoBehaviour
     {
         isAlive = true;
         canBeHit = true;
-        rig.SetActive(false);
-        enemyColliders.SetActive(true);
+        setRigidbodyState(true);
+        setColliderState(false);
+
+        bloodpool.size = new Vector3(3f, 3f, 1f);
     }
 
     // Update is called once per frame
@@ -79,7 +83,10 @@ public class enemyAI : MonoBehaviour
                 enemyAnimator.SetInteger("Attack", 2);
             }
 
-            checkHealth();
+            if(enemyHealth <= 0)
+            {
+                die();
+            }
 
             if(gotHit)
             {
@@ -91,33 +98,61 @@ public class enemyAI : MonoBehaviour
         }
     }
 
-    public void checkHealth() 
+    public void die() 
     {
-        if(enemyHealth <= 0)
+        enemyHealth = 0;
+
+        enemyAnimator.enabled = false;
+
+        setRigidbodyState(false);
+        setColliderState(true);
+
+        Collider[] colliders = enemyColliders.GetComponentsInChildren<Collider>();
+
+        foreach(Collider collider in colliders)
         {
-            enemyHealth = 0;
-
-            enemyAnimator.enabled = false;
-            enemyRB.isKinematic = true;
-            enemyColliders.SetActive(false);
-            rig.SetActive(true);
-
-            // Removes rotational restraints
-            enemyRB.constraints = RigidbodyConstraints.None;
-
-            // Creates a vector pointing from the player to the enemy for the knockback direction
-            Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
-            // knockbackDir.y = knockbackDir.y + 1;
-
-            // knocks enemy back
-            ragdoll.AddForce(knockbackDir.normalized * -knockback, ForceMode.Impulse);
-
-            Debug.Log("He dead!");
-
-            GameManager.Instance.enemiesKilled += 1;
-        
-            isAlive = false;
+            collider.enabled = false;
         }
+
+        // Removes rotational restraints
+        enemyRB.constraints = RigidbodyConstraints.None;
+
+        // Creates a vector pointing from the player to the enemy for the knockback direction
+        Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
+        // knockbackDir.y = knockbackDir.y + 1;
+
+        // knocks enemy back
+
+        Debug.Log("He dead!");
+
+        GameManager.Instance.enemiesKilled += 1;
+    
+        isAlive = false;
+
+    }
+
+    void setRigidbodyState(bool state) {
+
+        Rigidbody[] rigidbodies = rig.GetComponentsInChildren<Rigidbody>();
+
+        foreach(Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.isKinematic = state;
+        }
+
+        GetComponent<Rigidbody>().isKinematic = !state;
+    }
+
+    void setColliderState(bool state) {
+
+        Collider[] colliders = rig.GetComponentsInChildren<Collider>();
+
+        foreach(Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+
+        GetComponent<Collider>().enabled = !state;
     }
 
     public IEnumerator resetGotHit(float timeHit) 
