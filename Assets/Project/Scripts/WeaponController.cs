@@ -33,10 +33,18 @@ public class WeaponController : MonoBehaviour
     }
     void Update()
     {
+        // Block input if paused
+        if (GameManager.Instance.State == GameState.Paused)
+        {
+            return;
+        }
+
         if(!isAttacking && playerAnimator != null)
         {
             if(Input.GetKeyDown(chainSawButton))
             {
+                GameManager.Instance.currGas -= 1;
+
                 playerAnimator.SetInteger("Attack", 2);
 
                 isAttacking = true;

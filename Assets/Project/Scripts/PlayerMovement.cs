@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode backwardKey = KeyCode.S;
     public KeyCode leftKey = KeyCode.A;
     public KeyCode rightKey = KeyCode.D;
+    public KeyCode pauseKey = KeyCode.Escape;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -83,13 +84,12 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
-    private void Start()
+    void Start()
     {
-        if (UpdateControls.InstanceExists)
-        {
-            // Load controls
-            UpdateControls.Instance.LoadControls();
-        }
+        Debug.Log("Loading Controls");
+        // Load controls
+        updateControls = FindObjectOfType<UpdateControls>();
+        updateControls.LoadControls();
 
         //animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
