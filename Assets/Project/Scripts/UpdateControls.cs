@@ -19,15 +19,14 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
     private bool isFocused = false;
     private bool isFirstInput;
 
+    void Awake()
+    {
+        inputFieldsDict = GameManager.Instance.inputFieldsDict;
+        defaultKeyDict = GameManager.Instance.defaultKeyDict;
+    }
+
     void Start()
     {
-        if (inputFieldsDict == null || defaultKeyDict == null)
-        {
-            inputFieldsDict = GameManager.Instance.inputFieldsDict;
-            defaultKeyDict = GameManager.Instance.defaultKeyDict;
-            Debug.Log("Grabbing controls dictionaries from GameManager instance");
-        }
-
         // Update the text of the input fields to reflect keybinds
         UpdateInputFieldText();
     }
@@ -82,7 +81,7 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
         Debug.Log(inputFieldsDict[inputField] + " set to " + keyCode.ToString());
     }
 
-    private void UpdateInputFieldText()
+    public void UpdateInputFieldText()
     {
         // Loop through all keybinds to see if any have been set
         foreach (KeyValuePair<TMP_InputField, string> iField in inputFieldsDict)
@@ -100,22 +99,20 @@ public class UpdateControls : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void LoadControls()
     {        
-        playerMovement = FindObjectOfType<PlayerMovement>();
-
-        if (playerMovement == null)
+        if (SceneManager.GetActiveScene().name == "Main Menu")
         {
-            Debug.LogError("No PlayerMovement instance found!");
             return;
         }
+
+        playerMovement = FindObjectOfType<PlayerMovement>();
 
         foreach (KeyValuePair<TMP_InputField, string> iField in inputFieldsDict)
         {
             //Use reflection to dynamically obtained the class information for the given variable
-            Debug.Log("Key name: " + iField.Value);
             var fieldInfo = playerMovement.GetType().GetField(iField.Value);
             if (fieldInfo == null)
             {
-                Debug.Log("Key doesn't exist");
+                Debug.Log("Key doesn't exist in playermovement script");
                 continue;  // skip the rest of this iteration
             }
 

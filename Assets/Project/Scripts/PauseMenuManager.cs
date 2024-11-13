@@ -17,6 +17,7 @@ public class PauseMenuManager : MonoBehaviour
     public TMP_Text enemiesKilledText;
     public TMP_Text gallonsSpilledText;
     public GameObject controlsMenu;
+    public Slider volumeSlider;
     public static PauseMenuManager Instance;
 
 
@@ -68,6 +69,9 @@ public class PauseMenuManager : MonoBehaviour
 
     private void GameManagerOnGameStateChanged(GameState state)
     {
+        // Load controls
+        FindObjectOfType<UpdateControls>().LoadControls();
+
         if (state == GameState.Paused)
         {
             // Pause game

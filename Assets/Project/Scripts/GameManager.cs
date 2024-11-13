@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Main Menu")]
+    public GameObject mainMenu;
+
     [Header("Controls")]
     public TMP_InputField forwardInputField;
     public TMP_InputField backwardInputField;
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         maxHealth = 100f;
         maxGas = 100f;
         maxStamina = 100f;
@@ -148,6 +153,20 @@ public class GameManager : MonoBehaviour
         SaveStats();
     }
 
+    private IEnumerator GrabInputFields()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("Grabbing input fields");
+
+        var inputFields = Resources.FindObjectsOfTypeAll<TMP_InputField>();
+
+        forwardInputField = inputFields.FirstOrDefault(field => field.name == "Forward Box");
+        backwardInputField = inputFields.FirstOrDefault(field => field.name == "Backward Box");
+        leftInputField = inputFields.FirstOrDefault(field => field.name == "Left Box");
+        rightInputField = inputFields.FirstOrDefault(field => field.name == "Right Box");
+        pauseInputField = inputFields.FirstOrDefault(field => field.name == "Pause Box");
+    }
+
     public void InitializeControls()
     {
         // To add a new key to the controls
@@ -175,6 +194,16 @@ public class GameManager : MonoBehaviour
             {"rightKey", KeyCode.D},
             {"pauseKey", KeyCode.Escape}
         };
+    }
+
+    public void CloseMainMenuSettings()
+    {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            // Called when pressing the back button on the main menu settings page
+            pauseMenuManager.SetActive(false);
+            mainMenu.SetActive(true);
+        }
     }
 
     public void UpdateGameState(GameState newState)

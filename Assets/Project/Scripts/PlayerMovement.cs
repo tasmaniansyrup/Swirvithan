@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode backwardKey = KeyCode.S;
     public KeyCode leftKey = KeyCode.A;
     public KeyCode rightKey = KeyCode.D;
+    public KeyCode pauseKey = KeyCode.Escape;
 
     [Header("Ground Check")]
     public float playerHeight;
