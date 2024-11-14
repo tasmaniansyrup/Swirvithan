@@ -7,8 +7,8 @@ public class WeaponController : MonoBehaviour
 {
 
     [Header("Objects")]
-    public GameObject chainsaw;
-    public GameObject malletHitbox;
+    public Collider chainsawHitbox;
+    public Collider malletHitbox;
     public Animator playerAnimator;
 
     [Header("Keybinds")]
@@ -29,7 +29,8 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame cool!
 
     public void Awake() {
-        malletHitbox.SetActive(false);
+        malletHitbox.enabled = false;
+        chainsawHitbox.enabled = false;
     }
     void Update()
     {
@@ -46,6 +47,9 @@ public class WeaponController : MonoBehaviour
                 GameManager.Instance.currGas -= 1;
 
                 playerAnimator.SetInteger("Attack", 2);
+
+                IEnumerator chainsawDelay = chainsawHitboxDelayer();
+                StartCoroutine(chainsawDelay);
 
                 isAttacking = true;
 
@@ -69,6 +73,8 @@ public class WeaponController : MonoBehaviour
             if(Input.GetKeyUp(chainSawButton))
             {
                 playerAnimator.SetInteger("Attack", 0);
+
+                chainsawHitbox.enabled = false;
                 
                 isAttacking = false;
             }
@@ -86,16 +92,17 @@ public class WeaponController : MonoBehaviour
         isAttacking = false;
     }
 
-
-
-
-
+    public IEnumerator chainsawHitboxDelayer()
+    {
+        yield return new WaitForSeconds(.267f);
+        chainsawHitbox.enabled = true;
+    }
 
 
     public IEnumerator malletHitboxDelayer()
     {
         yield return new WaitForSeconds(.333f * malletHitboxDelay);
-        malletHitbox.SetActive(true);
+        malletHitbox.enabled = true;
 
         IEnumerator malletDuration = malletDurationTurnOff();
         StartCoroutine(malletDuration);
@@ -104,6 +111,6 @@ public class WeaponController : MonoBehaviour
     public IEnumerator malletDurationTurnOff()
     {
         yield return new WaitForSeconds(malletHitboxDuration);
-        malletHitbox.SetActive(false);
+        malletHitbox.enabled = false;
     }
 }

@@ -27,6 +27,8 @@ public class collisionDetection : MonoBehaviour
             // Gets enemy script from collider
             enemyScript = enemyRB.gameObject.GetComponent<enemyAI>();
 
+            bool isChainsaw = gameObject.name.Contains("chain");
+
             if(enemyScript.isAlive && !enemyScript.gotHit)
             {
                 enemyScript.gotHit = true;
@@ -37,26 +39,30 @@ public class collisionDetection : MonoBehaviour
 
                 malletSmack.Play();
                 bloodVFX.Play();
-                
-                Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
-                knockbackDir.y = knockbackDir.y + 1;
 
-                enemyRB.AddForce(knockbackDir.normalized * -10, ForceMode.Impulse);
+                
+                if(!isChainsaw)
+                {
+                    Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
+                    knockbackDir.y = knockbackDir.y + 1;
+
+                    enemyRB.AddForce(knockbackDir.normalized * -10, ForceMode.Impulse);
+                }
 
                 if(other.gameObject.name.Contains("Arm")) {
-                    Debug.Log("Arm - 15");
+                    Debug.Log("Arm - 1");
                     enemyScript.enemyHealth -= armDmg;
                 }
                 else if(other.gameObject.name.Contains("Leg")) {
-                    Debug.Log("Leg - 20");
+                    Debug.Log("Leg - 1");
                     enemyScript.enemyHealth -= legDmg;
                 }
                 else if(other.gameObject.name.Contains("head")) {
-                    Debug.Log("Head! - 35");
+                    Debug.Log("Head! - 3");
                     enemyScript.enemyHealth -= headDmg;
                 }
                 else if(other.gameObject.name.Contains("torso")) {
-                    Debug.Log("Torso - 30");
+                    Debug.Log("Torso - 2");
                     enemyScript.enemyHealth -= torsoDmg;
                 }
             }

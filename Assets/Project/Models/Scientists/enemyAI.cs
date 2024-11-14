@@ -22,8 +22,13 @@ public class enemyAI : MonoBehaviour
     public Animator enemyAnimator;
     public GameObject rig;
     public GameObject enemyColliders;
-    public Transform spine;
+    public Rigidbody spine;
     public DecalProjector bloodpool;
+
+    public float desiredDuration;
+    public float elapsedTime;
+    public LayerMask whatIsGround;
+    
 
 
     // Makes enemy alive when enemy first spawns
@@ -33,8 +38,9 @@ public class enemyAI : MonoBehaviour
         canBeHit = true;
         setRigidbodyState(true);
         setColliderState(false);
+        
 
-        bloodpool.size = new Vector3(3f, 3f, 1f);
+        bloodpool.size = new Vector3(0f, 0f, 1f);
     }
 
     // Update is called once per frame
@@ -83,10 +89,6 @@ public class enemyAI : MonoBehaviour
                 enemyAnimator.SetInteger("Attack", 2);
             }
 
-            if(enemyHealth <= 0)
-            {
-                die();
-            }
 
             if(gotHit)
             {
@@ -96,10 +98,15 @@ public class enemyAI : MonoBehaviour
                 StartCoroutine(rgh);
             }
         }
+        if(enemyHealth <= 0)
+        {
+            die();
+        }
     }
 
     public void die() 
     {
+
         enemyHealth = 0;
 
         enemyAnimator.enabled = false;
@@ -128,6 +135,25 @@ public class enemyAI : MonoBehaviour
         GameManager.Instance.enemiesKilled += 1;
     
         isAlive = false;
+
+        if(spine.velocity.magnitude <= 0.1f)
+        {
+            Vector3 startSize = new Vector3(0f, 0f, 1f);
+            Vector3 spilledSize = new Vector3(2f, 2f, 1f);
+
+            elapsedTime += Time.deltaTime;
+            
+
+            float percentComplete = elapsedTime / desiredDuration;
+
+            bloodpool.size = Vector3.Lerp(startSize, spilledSize, Mathf.SmoothStep(0, 1, percentComplete));
+
+            bloodpool.transform.position = new Vector3(spine.transform.position.x, bloodpool.transform.position.y, spine.transform.position.z);
+
+            if(Physics.Raycast(spine.transform.position, Vector3.down, out RaycastHit groundHit, 2f, whatIsGround)) {
+                bloodpool.transform.position = groundHit.transform.position;
+            }
+        }
 
     }
 
