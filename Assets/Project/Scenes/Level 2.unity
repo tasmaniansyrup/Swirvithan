@@ -292,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRB: {fileID: 0}
+  playerRB: {fileID: 0}
   enemyScript: {fileID: 0}
   dc: {fileID: 0}
   player: {fileID: 1429995964}
@@ -301,6 +302,8 @@ MonoBehaviour:
   legDmg: 20
   headDmg: 35
   torsoDmg: 30
+  targetTag: 
+  UIBarHandler: {fileID: 256778318}
 --- !u!65 &30026149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -467,7 +470,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: adc4e569934e91b4a83d676305cb291e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.640506
+      value: -31.440506
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: adc4e569934e91b4a83d676305cb291e,
         type: 3}
@@ -696,6 +699,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215deeeaba49b8b42a4aa20bdfb050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHitboxDuration: 0.1
+  attackHitboxDelay: 0.4
+  attackAnimationDuration: 1.049
+  isAttacking: 0
+  attackHitbox: {fileID: 1257038135}
   player: {fileID: 1429995964}
   targetDistance: 15
   attackDistance: 1.5
@@ -1094,7 +1102,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 444dddc2e8518f34ab2572eb9aab0661,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -87.551865
+      value: -106.35187
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 444dddc2e8518f34ab2572eb9aab0661,
         type: 3}
@@ -2222,7 +2230,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2552,6 +2560,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215deeeaba49b8b42a4aa20bdfb050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHitboxDuration: 0
+  attackHitboxDelay: 0
+  attackAnimationDuration: 1.049
+  isAttacking: 0
+  attackHitbox: {fileID: 0}
   player: {fileID: 1429995964}
   targetDistance: 15
   attackDistance: 1.5
@@ -3472,7 +3485,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e0b80621805b33f4da2ac0e392d8b5a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -75.440506
+      value: -94.24051
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e0b80621805b33f4da2ac0e392d8b5a9,
         type: 3}
@@ -3739,7 +3752,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4492,7 +4505,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.640506
+      value: -31.440506
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
@@ -5381,7 +5394,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -6424,7 +6437,7 @@ PrefabInstance:
     - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.910309
+      value: -35.710308
       objectReference: {fileID: 0}
     - target: {fileID: 4170201859419348487, guid: 7f87d429a50eb95439404256ce06d9fd,
         type: 3}
@@ -6902,7 +6915,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 271f488d885d0004c85b57ac8d612c18,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.359496
+      value: -16.440502
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 271f488d885d0004c85b57ac8d612c18,
         type: 3}
@@ -7351,7 +7364,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -13191,7 +13204,7 @@ PrefabInstance:
     - target: {fileID: 6459863671522202544, guid: d65fbf3a41a36c449bb62c6ae41b2c82,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -18.8
       objectReference: {fileID: 0}
     - target: {fileID: 6459863671522202544, guid: d65fbf3a41a36c449bb62c6ae41b2c82,
         type: 3}
@@ -13324,7 +13337,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a812dd3a3a301824b923f1ead6a81234,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.9119425
+      value: -7.8880568
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a812dd3a3a301824b923f1ead6a81234,
         type: 3}
@@ -18386,7 +18399,7 @@ Transform:
   m_GameObject: {fileID: 1164235168}
   serializedVersion: 2
   m_LocalRotation: {x: -0.78514916, y: -0.25164625, z: -0.13205743, w: 0.5502507}
-  m_LocalPosition: {x: -0.6054675, y: -0.020362854, z: 0.9500001}
+  m_LocalPosition: {x: -0.6054675, y: -0.020362854, z: 0.9499989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18577,6 +18590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215deeeaba49b8b42a4aa20bdfb050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHitboxDuration: 0
+  attackHitboxDelay: 0
+  attackAnimationDuration: 1.049
+  isAttacking: 0
+  attackHitbox: {fileID: 0}
   player: {fileID: 1429995964}
   targetDistance: 15
   attackDistance: 1.5
@@ -19092,7 +19110,7 @@ GameObject:
   - component: {fileID: 1257038135}
   m_Layer: 0
   m_Name: attackHitbox
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19127,11 +19145,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.81, y: 1.66, z: 0.47}
+  m_Size: {x: 0.81, y: 1.66, z: 0.77}
   m_Center: {x: 0, y: 0.6, z: 0.93}
 --- !u!114 &1257038136
 MonoBehaviour:
@@ -19146,15 +19164,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRB: {fileID: 0}
+  playerRB: {fileID: 0}
   enemyScript: {fileID: 0}
   dc: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 1429995964}
   malletSmack: {fileID: 0}
   bloodVFX: {fileID: 0}
   armDmg: 0
   legDmg: 0
   headDmg: 0
   torsoDmg: 0
+  targetTag: 
+  UIBarHandler: {fileID: 256778318}
 --- !u!1 &1260618609
 GameObject:
   m_ObjectHideFlags: 0
@@ -19182,7 +19203,7 @@ Transform:
   m_GameObject: {fileID: 1260618609}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: -18.8, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19515,6 +19536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215deeeaba49b8b42a4aa20bdfb050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHitboxDuration: 0
+  attackHitboxDelay: 0
+  attackAnimationDuration: 1.049
+  isAttacking: 0
+  attackHitbox: {fileID: 0}
   player: {fileID: 1429995964}
   targetDistance: 15
   attackDistance: 1.5
@@ -19791,7 +19817,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -25053,6 +25079,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215deeeaba49b8b42a4aa20bdfb050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHitboxDuration: 0
+  attackHitboxDelay: 0
+  attackAnimationDuration: 1.049
+  isAttacking: 0
+  attackHitbox: {fileID: 0}
   player: {fileID: 1429995964}
   targetDistance: 15
   attackDistance: 1.5
@@ -25197,7 +25228,7 @@ Transform:
   m_GameObject: {fileID: 1398496935}
   serializedVersion: 2
   m_LocalRotation: {x: 0.8671088, y: -0.033750277, z: -0.019328969, w: -0.496598}
-  m_LocalPosition: {x: 0.5950009, y: 0.33600044, z: 0.986002}
+  m_LocalPosition: {x: 0.5950009, y: 0.33600044, z: 0.98600215}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30094,7 +30125,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -30249,7 +30280,7 @@ Transform:
   m_GameObject: {fileID: 1429995964}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.1, z: 0}
+  m_LocalPosition: {x: -18.8, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30468,7 +30499,7 @@ Transform:
   m_GameObject: {fileID: 1529655953}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -18.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30502,7 +30533,7 @@ Transform:
   m_GameObject: {fileID: 1533698976}
   serializedVersion: 2
   m_LocalRotation: {x: -0.99813145, y: -0.0018353042, z: 0.038917333, w: -0.047070924}
-  m_LocalPosition: {x: 0.59500057, y: 0.33600044, z: 0.9860012}
+  m_LocalPosition: {x: 0.59500057, y: 0.33600044, z: 0.98600024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35792,7 +35823,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -72.6405
+      value: -91.440506
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5f6de4939fe2cf408849f1d489c7db8,
         type: 3}
@@ -35962,7 +35993,7 @@ Transform:
   m_GameObject: {fileID: 1593386724}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -18.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36114,7 +36145,7 @@ GameObject:
   - component: {fileID: 1661464573}
   m_Layer: 6
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36902,7 +36933,7 @@ Transform:
   m_GameObject: {fileID: 1749768833}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -18.8, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37049,7 +37080,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -44685,7 +44716,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -44795,7 +44826,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -44876,7 +44907,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -45163,7 +45194,7 @@ Transform:
   m_GameObject: {fileID: 1951807727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -18.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45417,7 +45448,7 @@ Transform:
   m_GameObject: {fileID: 1994203962}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 9, z: 1.25}
+  m_LocalPosition: {x: -15.799999, y: 9, z: 1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45673,6 +45704,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215deeeaba49b8b42a4aa20bdfb050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHitboxDuration: 0
+  attackHitboxDelay: 0
+  attackAnimationDuration: 1.049
+  isAttacking: 0
+  attackHitbox: {fileID: 0}
   player: {fileID: 1429995964}
   targetDistance: 15
   attackDistance: 1.5
