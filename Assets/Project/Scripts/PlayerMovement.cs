@@ -391,12 +391,15 @@ public class PlayerMovement : MonoBehaviour
 
     // Returns if player is on slope as well as updates slopeHit
     private bool OnSlope() {
+
+        bool isOnSlope = false;
+
         if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f, whatIsGround)) {
             angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
+            isOnSlope =  angle < maxSlopeAngle && angle != 0;
         }
         
-        return false;
+        return isOnSlope;
     }
     
     // Return vector orthogonal to slope
