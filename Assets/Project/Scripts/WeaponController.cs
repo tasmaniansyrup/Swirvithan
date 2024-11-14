@@ -86,12 +86,6 @@ public class WeaponController : MonoBehaviour
         isAttacking = false;
     }
 
-
-
-
-
-
-
     public IEnumerator malletHitboxDelayer()
     {
         yield return new WaitForSeconds(.333f * malletHitboxDelay);
