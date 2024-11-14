@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     public Image staminaBar;
     public float staminaAmount;
     public bool isRegening;
+    public UIBarHandler UIBarHandler;
 
     Rigidbody rb;
     public MovementState state;
@@ -333,27 +334,29 @@ public class PlayerMovement : MonoBehaviour
 
             // * Keep this code, its working and used for stamina regen/degen.
             // * Commented out for development/testing
-            // if(Input.GetKey(sprintKey) && staminaAmount >= 0.01 && flatVel.magnitude > 1)
-            // {
-            //     isRunning = true;
-            //     isRegening = false;
-            //     staminaAmount -= 30 * Time.deltaTime;
-            //     staminaBar.fillAmount = staminaAmount/100f;
-            //     regenTimer = 1.4f;
-            // }
-            // else if(staminaAmount < 100f && !Input.GetKey(sprintKey) && !isRunning){
-            //     //StartCoroutine(regenStamina);
-            // }
-            // else {
-            //     isRegening = false;
-            // }
-            // if(regenTimer <= 0 && staminaAmount < 100) {
-            //     staminaAmount += 20 * Time.deltaTime;
-            //     staminaBar.fillAmount = staminaAmount/100f;
-            // }
-            // if(regenTimer > 0) {
-            //     regenTimer -= Time.deltaTime;
-            // }
+            if(Input.GetKey(sprintKey) && staminaAmount >= 0.01 && flatVel.magnitude > 1)
+            {
+                isRunning = true;
+                isRegening = false;
+                // staminaAmount -= 30 * Time.deltaTime;
+                // staminaBar.fillAmount = staminaAmount/100f;
+                staminaAmount = UIBarHandler.UpdateStamina(-30 * Time.deltaTime);
+                regenTimer = 1.4f;
+            }
+            else if(staminaAmount < 100f && !Input.GetKey(sprintKey) && !isRunning){
+                StartCoroutine(regenStamina);
+            }
+            else {
+                isRegening = false;
+            }
+            if(regenTimer <= 0 && staminaAmount < 100) {
+                // staminaAmount += 20 * Time.deltaTime;
+                // staminaBar.fillAmount = staminaAmount/100f;
+                staminaAmount = UIBarHandler.UpdateStamina(20 * Time.deltaTime);
+            }
+            if(regenTimer > 0) {
+                regenTimer -= Time.deltaTime;
+            }
         }
 
     }

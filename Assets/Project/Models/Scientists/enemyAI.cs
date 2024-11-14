@@ -7,6 +7,13 @@ using UnityEngine.Rendering.Universal;
 
 public class enemyAI : MonoBehaviour
 {
+    [Header("Attack Timing")]
+
+    public float attackHitboxDuration;
+    public float attackHitboxDelay;
+    public float attackAnimationDuration = 1.049f;
+    public bool isAttacking = false;
+    public Collider attackHitbox;
     
     public GameObject player;
     public float targetDistance;
@@ -81,12 +88,20 @@ public class enemyAI : MonoBehaviour
                 }
 
             } // Stops enemy if close to player
-            else if(playerDistance <= attackDistance && canBeHit)
+            else if(playerDistance <= attackDistance && canBeHit && !isAttacking)
             {
                 gameObject.transform.LookAt(enemyLookAt);
                 enemyRB.velocity = Vector3.zero;
                 enemyAnimator.SetInteger("Speed", 0);
                 enemyAnimator.SetInteger("Attack", 2);
+
+                isAttacking = true;
+
+                IEnumerator attackDuraction = scientistAttackDuration();
+                StartCoroutine(attackDuraction);
+
+                IEnumerator attackDelay = scientistHitboxDelayer();
+                StartCoroutine(attackDelay);
             }
 
 
@@ -187,5 +202,26 @@ public class enemyAI : MonoBehaviour
         enemyAnimator.SetBool("Hit", false);
         canBeHit = true;
         gotHit = false;
+    }
+
+    public IEnumerator scientistAttackDuration()
+    {
+        yield return new WaitForSeconds(attackAnimationDuration);
+        isAttacking = false;
+    }
+
+    public IEnumerator scientistHitboxDelayer()
+    {
+        yield return new WaitForSeconds(1.042f * attackHitboxDelay);
+        attackHitbox.enabled = true;
+
+        IEnumerator attackDuration = scientistDurationTurnOff();
+        StartCoroutine(attackDuration);
+    }
+
+    public IEnumerator scientistDurationTurnOff()
+    {
+        yield return new WaitForSeconds(attackHitboxDuration);
+        attackHitbox.enabled = false;
     }
 }

@@ -75,15 +75,15 @@ public class GameManager : MonoBehaviour
         currGas = 100f;
         currStamina = 100f;
 
-        if (PlayerPrefs.HasKey("currHealth"))
-        {
-            currHealth = PlayerPrefs.GetFloat("currHealth");
-        }
+        // if (PlayerPrefs.HasKey("currHealth"))
+        // {
+        //     currHealth = PlayerPrefs.GetFloat("currHealth");
+        // }
 
-        if (PlayerPrefs.HasKey("currGas"))
-        {
-            currGas = PlayerPrefs.GetFloat("currGas");
-        }
+        // if (PlayerPrefs.HasKey("currGas"))
+        // {
+        //     currGas = PlayerPrefs.GetFloat("currGas");
+        // }
     }
 
     void Update()

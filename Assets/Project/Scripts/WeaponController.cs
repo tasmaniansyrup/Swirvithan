@@ -98,7 +98,6 @@ public class WeaponController : MonoBehaviour
         chainsawHitbox.enabled = true;
     }
 
-
     public IEnumerator malletHitboxDelayer()
     {
         yield return new WaitForSeconds(.333f * malletHitboxDelay);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class collisionDetection : MonoBehaviour
 {
-
     public Rigidbody enemyRB;
+    public Rigidbody playerRB;
     public enemyAI enemyScript;
     public doorController dc;
     public GameObject player;
@@ -15,6 +15,10 @@ public class collisionDetection : MonoBehaviour
     public int legDmg;
     public int headDmg;
     public int torsoDmg;
+
+    public string targetTag;
+
+    public UIBarHandler UIBarHandler;
 
     // Called when a collider is touching the trigger (weapon collider)
     private void OnTriggerStay(Collider other)
@@ -67,7 +71,19 @@ public class collisionDetection : MonoBehaviour
                 }
             }
         }
-        else if(other.tag == "Door") {
+        else if (other.tag == "Player" && gameObject.tag == "Enemy")
+        {
+            Debug.Log("I'm hit!");
+            gameObject.GetComponent<Collider>().enabled = false;
+
+            UIBarHandler.UpdateHealth(-5f);
+            playerRB = other.attachedRigidbody;
+
+            Vector3 knockbackDir = player.transform.position - gameObject.transform.position;
+
+            playerRB.AddForce(knockbackDir.normalized * 10, ForceMode.Impulse);
+        }
+        else if (other.tag == "Door") {
             dc = other.gameObject.GetComponent<doorController>();
             dc.bustOpenDoor(player.transform);
         }
