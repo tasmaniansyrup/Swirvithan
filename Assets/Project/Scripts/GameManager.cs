@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
             InitializeControls();
             InitializeStats();
-            loadStats();
+            // loadStats();
             
             // Activate pause menu long enough for its instance to be created (it will turn itself off after)
             pauseMenuManager.SetActive(true);
@@ -74,6 +74,12 @@ public class GameManager : MonoBehaviour
         currHealth = 100f;
         currGas = 100f;
         currStamina = 100f;
+
+        // Manually setting all stats to 0 for now
+        enemiesKilled = 0f;
+        gallonsSpilled = 0f;
+        timePlayed = 0f;
+        deaths = 0f;
 
         // if (PlayerPrefs.HasKey("currHealth"))
         // {
@@ -143,6 +149,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 // No stats stored, set all to 0
+                // Doesn't work atm
                 statsDict[key] = 0f;
             }
         }

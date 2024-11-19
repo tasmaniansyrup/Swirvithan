@@ -147,7 +147,10 @@ public class enemyAI : MonoBehaviour
 
         Debug.Log("He dead!");
 
-        GameManager.Instance.enemiesKilled += 1;
+        if (isAlive)
+        {
+            GameManager.Instance.enemiesKilled++;
+        }
     
         isAlive = false;
 
