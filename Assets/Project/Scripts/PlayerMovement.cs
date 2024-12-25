@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
+    public float slideForce;
+    public float slideSpeed;
+    public bool isSliding;
 
     [Header("Keybinds")]
     private UpdateControls updateControls;
@@ -82,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         walking,
         sprinting,
         crouching,
+        sliding,
         air
     }
 
@@ -99,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
 
         readyToJump = true;
+
+        isSliding = false;
 
         //stepRayHeight.transform.position = new Vector3(stepRayHeight.transform.position.x, -1 + stepMaxHeight, stepRayHeight.transform.position.z);
     }
@@ -259,10 +265,23 @@ public class PlayerMovement : MonoBehaviour
     // Kinda useless imo
     private void StateHandler() {
 
+        Debug.Log(rb.velocity.magnitude);
         // Player is crouching
         if(Input.GetKey(crouchKey)) {
-            state = MovementState.crouching;
-            moveSpeed = crouchSpeed;
+
+            if(rb.velocity.magnitude > walkSpeed + 1){
+                rb.AddForce(GetSlopeMoveDirection() * slideForce, ForceMode.Impulse);
+                isSliding = true;
+                
+
+                state = MovementState.sliding;
+                moveSpeed = slideSpeed;
+            }
+            else {
+                state = MovementState.crouching;
+                moveSpeed = crouchSpeed;
+            }
+
         }
         // Player is sprinting
         else if(grounded && Input.GetKey(sprintKey) && staminaAmount >= 0.01)
@@ -287,6 +306,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        gameObject.transform.rotation = orientation.rotation;
         
         // If on slope we want to have the player move along the the slope angle
         if(OnSlope() && !exitingSlope && state != MovementState.crouching) {

@@ -23,7 +23,7 @@ public class collisionDetection : MonoBehaviour
     // Called when a collider is touching the trigger (weapon collider)
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Enemy")
+        if(other.tag == "Enemy" && gameObject.tag == "Player")
         {
             // Gets rigidbody from collider
             enemyRB = other.attachedRigidbody;
@@ -83,7 +83,7 @@ public class collisionDetection : MonoBehaviour
 
             playerRB.AddForce(knockbackDir.normalized * 10, ForceMode.Impulse);
         }
-        else if (other.tag == "Door") {
+        else if (other.tag == "Door" && gameObject.tag == "Player") {
             dc = other.gameObject.GetComponent<doorController>();
             dc.bustOpenDoor(player.transform);
         }

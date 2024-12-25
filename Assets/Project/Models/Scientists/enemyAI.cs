@@ -38,6 +38,8 @@ public class enemyAI : MonoBehaviour
     
 
 
+
+
     // Makes enemy alive when enemy first spawns
     void Awake()
     {
@@ -53,6 +55,10 @@ public class enemyAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        // IEnumerator attackDelay = scientistHitboxDelayer();
+        // IEnumerator attackDuration = scientistAttackDuration();
+
         // Only runs if enemy is alive
         if(isAlive)
         {
@@ -97,25 +103,36 @@ public class enemyAI : MonoBehaviour
 
                 isAttacking = true;
 
-                IEnumerator attackDuraction = scientistAttackDuration();
-                StartCoroutine(attackDuraction);
-
-                IEnumerator attackDelay = scientistHitboxDelayer();
-                StartCoroutine(attackDelay);
+                // StartCoroutine(attackDuration);
+                // StartCoroutine(attackDelay);
             }
 
 
             if(gotHit)
             {
+                if(isAttacking)
+                {
+                    // StopCoroutine(attackDuration);
+                    // StopCoroutine(attackDelay);
+                    isAttacking = false;
+                    attackHitbox.enabled = false;
+                }
+
                 canBeHit = false;
                 IEnumerator rgh = resetGotHit(.1f);
                 enemyAnimator.SetBool("Hit", true);
                 StartCoroutine(rgh);
+                enemyAnimator.SetInteger("Speed", 0);
+                enemyAnimator.SetInteger("Attack", 0);
             }
         }
         if(enemyHealth <= 0)
         {
             die();
+            // StopCoroutine(attackDuration);
+            // StopCoroutine(attackDelay);
+            isAttacking = false;
+            attackHitbox.enabled = false;
         }
     }
 
@@ -145,8 +162,6 @@ public class enemyAI : MonoBehaviour
 
         // knocks enemy back
 
-        Debug.Log("He dead!");
-
         if (isAlive)
         {
             GameManager.Instance.enemiesKilled++;
@@ -169,9 +184,12 @@ public class enemyAI : MonoBehaviour
             bloodpool.transform.position = new Vector3(spine.transform.position.x, bloodpool.transform.position.y, spine.transform.position.z);
 
             if(Physics.Raycast(spine.transform.position, Vector3.down, out RaycastHit groundHit, 2f, whatIsGround)) {
-                bloodpool.transform.position = groundHit.transform.position;
+                Vector3 newLoc = spine.transform.position;
+                newLoc.y = groundHit.transform.position.y + .01f;
+                bloodpool.transform.position = newLoc;
             }
         }
+        
 
     }
 
