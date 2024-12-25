@@ -10,7 +10,7 @@ public class Mouselook : MonoBehaviour
     public Transform orientation;
 
     float xRotation;
-    float yRotation;
+    float yRotation = -135f;
 
 
     private void Start()
