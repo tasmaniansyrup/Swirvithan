@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    bool slowingDown;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -148,13 +149,16 @@ public class PlayerMovement : MonoBehaviour
          *  Used to handle players exiting slopes
          */
         if(rb.velocity.y > 0 && readyToJump && !OnSlope() && !grounded) {
-            Vector3 newVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            rb.velocity = newVel;
+            // Vector3 newVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            // rb.velocity = newVel;
         }
 
         // handle drag
-        if(grounded){
+        if(grounded && !isSliding){
             rb.drag = groundDrag;
+        }
+        else if(isSliding) {
+            rb.drag = groundDrag/2f;
         }
         else{
             rb.drag = 0;
@@ -251,7 +255,8 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(crouchKey)) {
             Debug.Log("You're short");
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 7.5f, ForceMode.Impulse);
+            rb.AddForce(Vector3.down * 30f, ForceMode.Impulse);
+            //transform.position = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
         }
 
         // Scale player double size (height)
@@ -269,17 +274,18 @@ public class PlayerMovement : MonoBehaviour
         // Player is crouching
         if(Input.GetKey(crouchKey)) {
 
-            if(rb.velocity.magnitude > walkSpeed + 1){
+            if(rb.velocity.magnitude > walkSpeed + 1 && !isSliding){
                 rb.AddForce(GetSlopeMoveDirection() * slideForce, ForceMode.Impulse);
                 isSliding = true;
-                
+                                
 
                 state = MovementState.sliding;
                 moveSpeed = slideSpeed;
             }
-            else {
+            else if(rb.velocity.magnitude <= walkSpeed - 1){
                 state = MovementState.crouching;
                 moveSpeed = crouchSpeed;
+                isSliding = false;
             }
 
         }
@@ -308,23 +314,25 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         gameObject.transform.rotation = orientation.rotation;
         
-        // If on slope we want to have the player move along the the slope angle
-        if(OnSlope() && !exitingSlope && state != MovementState.crouching) {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+        if(!isSliding) {
+            // If on slope we want to have the player move along the the slope angle
+            if(OnSlope() && !exitingSlope && state != MovementState.crouching) {
+                rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
-            // Artificial gravity on slope
-            // ? Change in future idk
-            if(true) {
-                rb.AddForce(-slopeHit.normal * 40f, ForceMode.Force);
+                // Artificial gravity on slope
+                // ? Change in future idk
+                if(true) {
+                    rb.AddForce(-slopeHit.normal * 40f, ForceMode.Force);
+                }
+            }
+            // If not on slope, adds force in direction player is looking/pressing
+            else if(grounded) {
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            }
+            else if(!grounded){
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             }
         }
-        // If not on slope, adds force in direction player is looking/pressing
-        else if(grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        else if(!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-
         // disable gravity on slope
         rb.useGravity = !OnSlope();
     }
@@ -346,10 +354,17 @@ public class PlayerMovement : MonoBehaviour
             IEnumerator regenStamina = staminaRegen();
 
             // limit vel
-            if(flatVel.magnitude > moveSpeed)
+            if(flatVel.magnitude > moveSpeed + 2 && state == MovementState.walking) {
+                slowingDown = true;
+            }
+            else if(flatVel.magnitude > moveSpeed)
             {
                 limitedVel = flatVel.normalized * moveSpeed;
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
+
+            if(slowingDown) {
+
             }
 
             // * Keep this code, its working and used for stamina regen/degen.
