@@ -6158,10 +6158,12 @@ MonoBehaviour:
   jumpForce: 8.25
   jumpCooldown: 0.5
   airMultiplier: 0.5
+  slowingDown: 0
+  slowdownDuration: 1
   crouchSpeed: 4
   crouchYScale: 0.5
-  slideForce: 1
-  slideSpeed: 16
+  slideForce: 15
+  slideSpeed: 20
   isSliding: 0
   jumpKey: 32
   sprintKey: 304
